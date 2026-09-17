@@ -9,7 +9,6 @@ import { dal } from "../utils/dal";
 class DataService {
 
     public async getVacations(): Promise<VacationModel[]> {
-
         const sql = "SELECT * FROM vacations";
 
         const vacations = await dal.execute(sql);
@@ -17,16 +16,39 @@ class DataService {
         return vacations as VacationModel[];
     }
 
+    public async getVacationById(
+        vacationId: number
+    ): Promise<VacationModel> {
+
+        const sql = `
+            SELECT *
+            FROM vacations
+            WHERE vacationId = ?
+        `;
+
+        const vacations = await dal.execute(
+            sql,
+            [vacationId]
+        ) as VacationModel[];
+
+        if (vacations.length === 0) {
+            throw new Error("Vacation not found.");
+        }
+
+        return vacations[0];
+    }
+
     public async register(user: UserModel): Promise<string> {
 
-        // New registered users are regular users:
         user.role = "user";
 
-        // Validate:
         user.validate();
 
-        // Check if email already exists:
-        const sqlCheck = "SELECT userId FROM users WHERE email = ?";
+        const sqlCheck = `
+            SELECT userId
+            FROM users
+            WHERE email = ?
+        `;
 
         const existingUsers = await dal.execute(
             sqlCheck,
@@ -37,12 +59,16 @@ class DataService {
             throw new Error("Email already exists.");
         }
 
-        // Hash password:
         user.password = cyber.hash(user.password);
 
-        // Insert user:
         const sqlInsert = `
-            INSERT INTO users(firstName, lastName, email, password, role)
+            INSERT INTO users(
+                firstName,
+                lastName,
+                email,
+                password,
+                role
+            )
             VALUES(?, ?, ?, ?, ?)
         `;
 
@@ -54,28 +80,28 @@ class DataService {
             user.role
         ]) as ResultSetHeader;
 
-        // Get generated id:
         user.userId = result.insertId;
 
-        // Generate token:
         const token = cyber.generateToken(user);
 
         return token;
     }
 
-    public async login(credentials: CredentialsModel): Promise<string> {
+    public async login(
+        credentials: CredentialsModel
+    ): Promise<string> {
 
-        // Validate:
         credentials.validate();
 
-        // Hash password:
-        credentials.password = cyber.hash(credentials.password);
+        credentials.password = cyber.hash(
+            credentials.password
+        );
 
-        // Find user:
         const sql = `
             SELECT *
             FROM users
-            WHERE email = ? AND password = ?
+            WHERE email = ?
+            AND password = ?
         `;
 
         const users = await dal.execute(sql, [
@@ -83,18 +109,135 @@ class DataService {
             credentials.password
         ]) as UserModel[];
 
-        // Invalid credentials:
         if (users.length === 0) {
-            throw new Error("Incorrect email or password.");
+            throw new Error(
+                "Incorrect email or password."
+            );
         }
 
-        // Get user:
         const user = users[0];
 
-        // Generate token:
         const token = cyber.generateToken(user);
 
         return token;
+    }
+
+    public async addVacation(
+        vacation: VacationModel
+    ): Promise<VacationModel> {
+
+        vacation.validate();
+
+        const today = new Date();
+
+        today.setHours(0, 0, 0, 0);
+
+        if (vacation.startDate < today) {
+            throw new Error(
+                "Start date cannot be in the past."
+            );
+        }
+
+        if (vacation.endDate < vacation.startDate) {
+            throw new Error(
+                "End date cannot be before start date."
+            );
+        }
+
+        const sql = `
+            INSERT INTO vacations(
+                destination,
+                description,
+                startDate,
+                endDate,
+                price,
+                imageName
+            )
+            VALUES(?, ?, ?, ?, ?, ?)
+        `;
+
+        const result = await dal.execute(sql, [
+            vacation.destination,
+            vacation.description,
+            vacation.startDate
+                .toISOString()
+                .split("T")[0],
+            vacation.endDate
+                .toISOString()
+                .split("T")[0],
+            vacation.price,
+            vacation.imageName
+        ]) as ResultSetHeader;
+
+        vacation.vacationId = result.insertId;
+
+        return vacation;
+    }
+
+    public async updateVacation(
+        vacation: VacationModel
+    ): Promise<VacationModel> {
+
+        vacation.validate();
+
+        if (vacation.endDate < vacation.startDate) {
+            throw new Error(
+                "End date cannot be before start date."
+            );
+        }
+
+        const sql = `
+            UPDATE vacations
+            SET
+                destination = ?,
+                description = ?,
+                startDate = ?,
+                endDate = ?,
+                price = ?,
+                imageName = ?
+            WHERE vacationId = ?
+        `;
+
+        await dal.execute(sql, [
+            vacation.destination,
+            vacation.description,
+            vacation.startDate
+                .toISOString()
+                .split("T")[0],
+            vacation.endDate
+                .toISOString()
+                .split("T")[0],
+            vacation.price,
+            vacation.imageName,
+            vacation.vacationId!
+        ]);
+
+        return vacation;
+    }
+
+    public async deleteVacation(
+        vacationId: number
+    ): Promise<void> {
+
+        const deleteLikesSql = `
+            DELETE FROM likes
+            WHERE vacationId = ?
+        `;
+
+        await dal.execute(
+            deleteLikesSql,
+            [vacationId]
+        );
+
+        const deleteVacationSql = `
+            DELETE FROM vacations
+            WHERE vacationId = ?
+        `;
+
+        await dal.execute(
+            deleteVacationSql,
+            [vacationId]
+        );
     }
 
 }
