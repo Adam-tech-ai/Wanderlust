@@ -9,10 +9,63 @@ import { dal } from "../utils/dal";
 class DataService {
 
     public async getVacations(
-        userId: number
-    ): Promise<any[]> {
+        userId: number,
+        filter: string,
+        page: number
+    ): Promise<{
+        vacations: any[],
+        totalCount: number
+    }> {
 
-        const sql = `
+        // Exactly 9 vacations per page:
+        const limit = 9;
+
+        // Calculate how many vacations to skip:
+        const offset =
+            (page - 1) * limit;
+
+        // Filter condition:
+        let whereClause = "";
+
+        switch (filter) {
+
+            case "liked":
+                whereClause = `
+                    WHERE EXISTS (
+                        SELECT 1
+                        FROM likes AS userLikes
+                        WHERE userLikes.vacationId = v.vacationId
+                        AND userLikes.userId = ?
+                    )
+                `;
+                break;
+
+            case "active":
+                whereClause = `
+                    WHERE v.startDate <= CURDATE()
+                    AND v.endDate >= CURDATE()
+                `;
+                break;
+
+            case "future":
+                whereClause = `
+                    WHERE v.startDate > CURDATE()
+                `;
+                break;
+
+            default:
+                whereClause = "";
+                break;
+        }
+
+        // Parameters needed by the selected filter:
+        const filterParams =
+            filter === "liked"
+                ? [userId]
+                : [];
+
+        // Get vacations:
+        const vacationsSql = `
             SELECT
                 v.*,
                 COUNT(l.userId) AS likesCount,
@@ -25,16 +78,43 @@ class DataService {
             FROM vacations AS v
             LEFT JOIN likes AS l
                 ON v.vacationId = l.vacationId
+            ${whereClause}
             GROUP BY v.vacationId
             ORDER BY v.startDate ASC
+            LIMIT ?
+            OFFSET ?
         `;
 
         const vacations = await dal.execute(
-            sql,
-            [userId]
-        );
+            vacationsSql,
+            [
+                userId,
+                ...filterParams,
+                limit,
+                offset
+            ]
+        ) as any[];
 
-        return vacations as any[];
+        // Count vacations after applying the same filter:
+        const countSql = `
+            SELECT
+                COUNT(*) AS totalCount
+            FROM vacations AS v
+            ${whereClause}
+        `;
+
+        const countResult = await dal.execute(
+            countSql,
+            filterParams
+        ) as any[];
+
+        const totalCount =
+            Number(countResult[0].totalCount);
+
+        return {
+            vacations,
+            totalCount
+        };
     }
 
     public async getVacationById(

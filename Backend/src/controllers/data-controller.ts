@@ -78,12 +78,20 @@ class DataController {
         const user =
             cyber.getUserFromToken(token);
 
-        const vacations =
+        const filter =
+            String(request.query.filter || "all");
+
+        const page =
+            Number(request.query.page || 1);
+
+        const result =
             await dataService.getVacations(
-                user.userId!
+                user.userId!,
+                filter,
+                page
             );
 
-        response.json(vacations);
+        response.json(result);
     }
 
     private async addLike(
