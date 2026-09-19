@@ -6,6 +6,7 @@ import { CredentialsModel } from "../models/credentials-model";
 import { UserModel } from "../models/user-model";
 import { VacationModel } from "../models/vacation-model";
 import { dataService } from "../services/data-service";
+import { cyber } from "../utils/cyber";
 
 // Contains routes, without logic.
 class DataController {
@@ -20,6 +21,18 @@ class DataController {
             "/api/vacations",
             securityMiddleware.verifyLoggedIn,
             this.getVacations
+        );
+
+        this.router.post(
+            "/api/vacations/:id/likes",
+            securityMiddleware.verifyUser,
+            this.addLike
+        );
+
+        this.router.delete(
+            "/api/vacations/:id/likes",
+            securityMiddleware.verifyUser,
+            this.deleteLike
         );
 
         this.router.post(
@@ -56,10 +69,71 @@ class DataController {
         response: Response
     ): Promise<void> {
 
+        const authorization =
+            request.headers.authorization;
+
+        const token =
+            authorization!.substring(7);
+
+        const user =
+            cyber.getUserFromToken(token);
+
         const vacations =
-            await dataService.getVacations();
+            await dataService.getVacations(
+                user.userId!
+            );
 
         response.json(vacations);
+    }
+
+    private async addLike(
+        request: Request,
+        response: Response
+    ): Promise<void> {
+
+        const vacationId =
+            Number(request.params.id);
+
+        const authorization =
+            request.headers.authorization;
+
+        const token =
+            authorization!.substring(7);
+
+        const user =
+            cyber.getUserFromToken(token);
+
+        await dataService.addLike(
+            user.userId!,
+            vacationId
+        );
+
+        response.sendStatus(201);
+    }
+
+    private async deleteLike(
+        request: Request,
+        response: Response
+    ): Promise<void> {
+
+        const vacationId =
+            Number(request.params.id);
+
+        const authorization =
+            request.headers.authorization;
+
+        const token =
+            authorization!.substring(7);
+
+        const user =
+            cyber.getUserFromToken(token);
+
+        await dataService.deleteLike(
+            user.userId!,
+            vacationId
+        );
+
+        response.sendStatus(204);
     }
 
     private async addVacation(
@@ -175,7 +249,6 @@ class DataController {
 
         response.json(token);
     }
-
 }
 
 export const dataController =

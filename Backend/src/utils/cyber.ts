@@ -8,16 +8,12 @@ class Cyber {
     // Hash password:
     public hash(plainText: string): string {
 
-        // Create hash without salt:
-        // const hashText = crypto.createHash("sha512").update(plainText).digest("hex");
-
         // Create hash with salt (HMAC: Hash-based Message Authentication Code):
         const hashText = crypto
             .createHmac("sha512", appConfig.hashSalt)
             .update(plainText)
             .digest("hex");
 
-        // Return hashed password:
         return hashText;
     }
 
@@ -30,13 +26,18 @@ class Cyber {
         // Create payload:
         const payload = { user };
 
-        // Create options:
-        const options: SignOptions = { expiresIn: "3h" };
+        // Token options:
+        const options: SignOptions = {
+            expiresIn: "3h"
+        };
 
         // Generate token:
-        const token = jwt.sign(payload, appConfig.jwtSecret!, options);
+        const token = jwt.sign(
+            payload,
+            appConfig.jwtSecret!,
+            options
+        );
 
-        // Return token:
         return token;
     }
 
@@ -45,20 +46,28 @@ class Cyber {
 
         try {
 
-            // If no token:
-            if (!token) {
-                return false;
-            }
+            if (!token) return false;
 
-            // Verify token:
-            jwt.verify(token, appConfig.jwtSecret!);
+            jwt.verify(
+                token,
+                appConfig.jwtSecret!
+            );
 
-            // All is good - token is legal:
             return true;
         }
         catch (err: any) {
+
             return false;
         }
+    }
+
+    // Get user from token:
+    public getUserFromToken(token: string): UserModel {
+
+        const payload =
+            jwt.decode(token) as { user: UserModel };
+
+        return payload.user;
     }
 
     // Verify admin:
@@ -66,29 +75,28 @@ class Cyber {
 
         try {
 
-            // If no token:
-            if (!token) {
-                return false;
-            }
+            if (!token) return false;
 
-            // Verify token:
-            jwt.verify(token, appConfig.jwtSecret!);
+            jwt.verify(
+                token,
+                appConfig.jwtSecret!
+            );
 
-            // Extract payload:
-            const payload = jwt.decode(token) as { user: UserModel };
+            const payload =
+                jwt.decode(token) as {
+                    user: UserModel
+                };
 
-            // Extract user:
             const user = payload.user;
 
-            // If user is not admin:
             if (user.role !== "admin") {
                 return false;
             }
 
-            // All is good - token is legal, and user is admin:
             return true;
         }
         catch (err: any) {
+
             return false;
         }
     }

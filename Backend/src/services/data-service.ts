@@ -8,12 +8,33 @@ import { dal } from "../utils/dal";
 // Logic:
 class DataService {
 
-    public async getVacations(): Promise<VacationModel[]> {
-        const sql = "SELECT * FROM vacations";
+    public async getVacations(
+        userId: number
+    ): Promise<any[]> {
 
-        const vacations = await dal.execute(sql);
+        const sql = `
+            SELECT
+                v.*,
+                COUNT(l.userId) AS likesCount,
+                MAX(
+                    CASE
+                        WHEN l.userId = ? THEN 1
+                        ELSE 0
+                    END
+                ) AS isLiked
+            FROM vacations AS v
+            LEFT JOIN likes AS l
+                ON v.vacationId = l.vacationId
+            GROUP BY v.vacationId
+            ORDER BY v.startDate ASC
+        `;
 
-        return vacations as VacationModel[];
+        const vacations = await dal.execute(
+            sql,
+            [userId]
+        );
+
+        return vacations as any[];
     }
 
     public async getVacationById(
@@ -32,13 +53,17 @@ class DataService {
         ) as VacationModel[];
 
         if (vacations.length === 0) {
-            throw new Error("Vacation not found.");
+            throw new Error(
+                "Vacation not found."
+            );
         }
 
         return vacations[0];
     }
 
-    public async register(user: UserModel): Promise<string> {
+    public async register(
+        user: UserModel
+    ): Promise<string> {
 
         user.role = "user";
 
@@ -56,10 +81,13 @@ class DataService {
         ) as any[];
 
         if (existingUsers.length > 0) {
-            throw new Error("Email already exists.");
+            throw new Error(
+                "Email already exists."
+            );
         }
 
-        user.password = cyber.hash(user.password);
+        user.password =
+            cyber.hash(user.password);
 
         const sqlInsert = `
             INSERT INTO users(
@@ -72,17 +100,21 @@ class DataService {
             VALUES(?, ?, ?, ?, ?)
         `;
 
-        const result = await dal.execute(sqlInsert, [
-            user.firstName,
-            user.lastName,
-            user.email,
-            user.password,
-            user.role
-        ]) as ResultSetHeader;
+        const result = await dal.execute(
+            sqlInsert,
+            [
+                user.firstName,
+                user.lastName,
+                user.email,
+                user.password,
+                user.role
+            ]
+        ) as ResultSetHeader;
 
         user.userId = result.insertId;
 
-        const token = cyber.generateToken(user);
+        const token =
+            cyber.generateToken(user);
 
         return token;
     }
@@ -93,9 +125,8 @@ class DataService {
 
         credentials.validate();
 
-        credentials.password = cyber.hash(
-            credentials.password
-        );
+        credentials.password =
+            cyber.hash(credentials.password);
 
         const sql = `
             SELECT *
@@ -104,10 +135,13 @@ class DataService {
             AND password = ?
         `;
 
-        const users = await dal.execute(sql, [
-            credentials.email,
-            credentials.password
-        ]) as UserModel[];
+        const users = await dal.execute(
+            sql,
+            [
+                credentials.email,
+                credentials.password
+            ]
+        ) as UserModel[];
 
         if (users.length === 0) {
             throw new Error(
@@ -117,7 +151,8 @@ class DataService {
 
         const user = users[0];
 
-        const token = cyber.generateToken(user);
+        const token =
+            cyber.generateToken(user);
 
         return token;
     }
@@ -130,7 +165,12 @@ class DataService {
 
         const today = new Date();
 
-        today.setHours(0, 0, 0, 0);
+        today.setHours(
+            0,
+            0,
+            0,
+            0
+        );
 
         if (vacation.startDate < today) {
             throw new Error(
@@ -138,7 +178,10 @@ class DataService {
             );
         }
 
-        if (vacation.endDate < vacation.startDate) {
+        if (
+            vacation.endDate <
+            vacation.startDate
+        ) {
             throw new Error(
                 "End date cannot be before start date."
             );
@@ -156,20 +199,24 @@ class DataService {
             VALUES(?, ?, ?, ?, ?, ?)
         `;
 
-        const result = await dal.execute(sql, [
-            vacation.destination,
-            vacation.description,
-            vacation.startDate
-                .toISOString()
-                .split("T")[0],
-            vacation.endDate
-                .toISOString()
-                .split("T")[0],
-            vacation.price,
-            vacation.imageName
-        ]) as ResultSetHeader;
+        const result = await dal.execute(
+            sql,
+            [
+                vacation.destination,
+                vacation.description,
+                vacation.startDate
+                    .toISOString()
+                    .split("T")[0],
+                vacation.endDate
+                    .toISOString()
+                    .split("T")[0],
+                vacation.price,
+                vacation.imageName
+            ]
+        ) as ResultSetHeader;
 
-        vacation.vacationId = result.insertId;
+        vacation.vacationId =
+            result.insertId;
 
         return vacation;
     }
@@ -180,7 +227,10 @@ class DataService {
 
         vacation.validate();
 
-        if (vacation.endDate < vacation.startDate) {
+        if (
+            vacation.endDate <
+            vacation.startDate
+        ) {
             throw new Error(
                 "End date cannot be before start date."
             );
@@ -198,21 +248,66 @@ class DataService {
             WHERE vacationId = ?
         `;
 
-        await dal.execute(sql, [
-            vacation.destination,
-            vacation.description,
-            vacation.startDate
-                .toISOString()
-                .split("T")[0],
-            vacation.endDate
-                .toISOString()
-                .split("T")[0],
-            vacation.price,
-            vacation.imageName,
-            vacation.vacationId!
-        ]);
+        await dal.execute(
+            sql,
+            [
+                vacation.destination,
+                vacation.description,
+                vacation.startDate
+                    .toISOString()
+                    .split("T")[0],
+                vacation.endDate
+                    .toISOString()
+                    .split("T")[0],
+                vacation.price,
+                vacation.imageName,
+                vacation.vacationId!
+            ]
+        );
 
         return vacation;
+    }
+
+    public async addLike(
+        userId: number,
+        vacationId: number
+    ): Promise<void> {
+
+        const sql = `
+            INSERT INTO likes(
+                userId,
+                vacationId
+            )
+            VALUES(?, ?)
+        `;
+
+        await dal.execute(
+            sql,
+            [
+                userId,
+                vacationId
+            ]
+        );
+    }
+
+    public async deleteLike(
+        userId: number,
+        vacationId: number
+    ): Promise<void> {
+
+        const sql = `
+            DELETE FROM likes
+            WHERE userId = ?
+            AND vacationId = ?
+        `;
+
+        await dal.execute(
+            sql,
+            [
+                userId,
+                vacationId
+            ]
+        );
     }
 
     public async deleteVacation(
@@ -239,7 +334,7 @@ class DataService {
             [vacationId]
         );
     }
-
 }
 
-export const dataService = new DataService();
+export const dataService =
+    new DataService();
