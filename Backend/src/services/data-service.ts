@@ -21,14 +21,12 @@ class DataService {
         const limit = 9;
 
         // Calculate how many vacations to skip:
-        const offset =
-            (page - 1) * limit;
+        const offset = (page - 1) * limit;
 
         // Filter condition:
         let whereClause = "";
 
         switch (filter) {
-
             case "liked":
                 whereClause = `
                     WHERE EXISTS (
@@ -58,7 +56,7 @@ class DataService {
                 break;
         }
 
-        // Parameters needed by the selected filter:
+        // Parameters needed by selected filter:
         const filterParams =
             filter === "liked"
                 ? [userId]
@@ -95,10 +93,9 @@ class DataService {
             ]
         ) as any[];
 
-        // Count vacations after applying the same filter:
+        // Count vacations after applying same filter:
         const countSql = `
-            SELECT
-                COUNT(*) AS totalCount
+            SELECT COUNT(*) AS totalCount
             FROM vacations AS v
             ${whereClause}
         `;
@@ -117,6 +114,7 @@ class DataService {
         };
     }
 
+    // Get one vacation:
     public async getVacationById(
         vacationId: number
     ): Promise<VacationModel> {
@@ -141,12 +139,35 @@ class DataService {
         return vacations[0];
     }
 
+    // Get vacations report:
+    public async getVacationsReport(): Promise<any[]> {
+
+        const sql = `
+            SELECT
+                v.destination,
+                COUNT(l.userId) AS likesCount
+            FROM vacations AS v
+            LEFT JOIN likes AS l
+                ON v.vacationId = l.vacationId
+            GROUP BY
+                v.vacationId,
+                v.destination
+            ORDER BY
+                v.destination ASC
+        `;
+
+        const report =
+            await dal.execute(sql) as any[];
+
+        return report;
+    }
+
+    // Register user:
     public async register(
         user: UserModel
     ): Promise<string> {
 
         user.role = "user";
-
         user.validate();
 
         const sqlCheck = `
@@ -191,7 +212,8 @@ class DataService {
             ]
         ) as ResultSetHeader;
 
-        user.userId = result.insertId;
+        user.userId =
+            result.insertId;
 
         const token =
             cyber.generateToken(user);
@@ -199,6 +221,7 @@ class DataService {
         return token;
     }
 
+    // Login user:
     public async login(
         credentials: CredentialsModel
     ): Promise<string> {
@@ -237,6 +260,7 @@ class DataService {
         return token;
     }
 
+    // Add vacation:
     public async addVacation(
         vacation: VacationModel
     ): Promise<VacationModel> {
@@ -244,13 +268,7 @@ class DataService {
         vacation.validate();
 
         const today = new Date();
-
-        today.setHours(
-            0,
-            0,
-            0,
-            0
-        );
+        today.setHours(0, 0, 0, 0);
 
         if (vacation.startDate < today) {
             throw new Error(
@@ -301,6 +319,7 @@ class DataService {
         return vacation;
     }
 
+    // Update vacation:
     public async updateVacation(
         vacation: VacationModel
     ): Promise<VacationModel> {
@@ -348,6 +367,7 @@ class DataService {
         return vacation;
     }
 
+    // Add like:
     public async addLike(
         userId: number,
         vacationId: number
@@ -370,6 +390,7 @@ class DataService {
         );
     }
 
+    // Delete like:
     public async deleteLike(
         userId: number,
         vacationId: number
@@ -390,6 +411,7 @@ class DataService {
         );
     }
 
+    // Delete vacation:
     public async deleteVacation(
         vacationId: number
     ): Promise<void> {

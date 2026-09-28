@@ -11,16 +11,28 @@ import { cyber } from "../utils/cyber";
 // Contains routes, without logic.
 class DataController {
 
-    // Create a router object which can listen on routes:
+    // Create router:
     public router: Router = express.Router();
 
-    // Constructor - register routes:
+    // Register routes:
     public constructor() {
 
         this.router.get(
             "/api/vacations",
             securityMiddleware.verifyLoggedIn,
             this.getVacations
+        );
+
+        this.router.get(
+            "/api/vacations/:id",
+            securityMiddleware.verifyLoggedIn,
+            this.getVacationById
+        );
+
+        this.router.get(
+            "/api/reports",
+            securityMiddleware.verifyAdmin,
+            this.getVacationsReport
         );
 
         this.router.post(
@@ -64,6 +76,7 @@ class DataController {
         );
     }
 
+    // Get vacations:
     private async getVacations(
         request: Request,
         response: Response
@@ -94,6 +107,36 @@ class DataController {
         response.json(result);
     }
 
+    // Get one vacation:
+    private async getVacationById(
+        request: Request,
+        response: Response
+    ): Promise<void> {
+
+        const vacationId =
+            Number(request.params.id);
+
+        const vacation =
+            await dataService.getVacationById(
+                vacationId
+            );
+
+        response.json(vacation);
+    }
+
+    // Get vacations report:
+    private async getVacationsReport(
+        request: Request,
+        response: Response
+    ): Promise<void> {
+
+        const report =
+            await dataService.getVacationsReport();
+
+        response.json(report);
+    }
+
+    // Add like:
     private async addLike(
         request: Request,
         response: Response
@@ -119,6 +162,7 @@ class DataController {
         response.sendStatus(201);
     }
 
+    // Delete like:
     private async deleteLike(
         request: Request,
         response: Response
@@ -144,6 +188,7 @@ class DataController {
         response.sendStatus(204);
     }
 
+    // Add vacation:
     private async addVacation(
         request: Request,
         response: Response
@@ -162,13 +207,16 @@ class DataController {
         } as VacationModel);
 
         const addedVacation =
-            await dataService.addVacation(vacation);
+            await dataService.addVacation(
+                vacation
+            );
 
         response
             .status(201)
             .json(addedVacation);
     }
 
+    // Update vacation:
     private async updateVacation(
         request: Request,
         response: Response
@@ -189,7 +237,6 @@ class DataController {
             request.files?.image as UploadedFile;
 
         if (image) {
-
             const newImageName =
                 await saver.save(image);
 
@@ -213,6 +260,7 @@ class DataController {
         response.json(updatedVacation);
     }
 
+    // Delete vacation:
     private async deleteVacation(
         request: Request,
         response: Response
@@ -228,6 +276,7 @@ class DataController {
         response.sendStatus(204);
     }
 
+    // Register:
     private async register(
         request: Request,
         response: Response
@@ -244,6 +293,7 @@ class DataController {
             .json(token);
     }
 
+    // Login:
     private async login(
         request: Request,
         response: Response
