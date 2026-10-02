@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from "react-router-dom";
 import { About } from "../../pages-area/about/about";
 import { AddVacation } from "../../pages-area/add-vacation/add-vacation";
+import { AiRecommendation } from "../../pages-area/ai-recommendation/ai-recommendation";
 import { Data } from "../../pages-area/data/data";
 import { EditVacation } from "../../pages-area/edit-vacation/edit-vacation";
 import { Home } from "../../pages-area/home/home";
@@ -11,6 +12,7 @@ import { Reports } from "../../pages-area/reports/reports";
 import { Vacations } from "../../pages-area/vacations/vacations";
 import { AdminRoute } from "../../shared-area/admin-route/admin-route";
 import { ProtectedRoute } from "../../shared-area/protected-route/protected-route";
+import { UserRoute } from "../../shared-area/user-route/user-route";
 
 export function Routing() {
     return (
@@ -29,6 +31,15 @@ export function Routing() {
                     </ProtectedRoute>
                 }
             />
+
+            <Route
+             path="/ai-recommendation" 
+             element={
+        <UserRoute>
+            <AiRecommendation />
+        </UserRoute>
+             }
+           />
 
             <Route
                 path="/add-vacation"

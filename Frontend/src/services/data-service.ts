@@ -43,6 +43,19 @@ class DataService {
         return response.data;
     }
 
+    // Get AI trip recommendation:
+    public async getAiRecommendation(
+        destination: string
+    ): Promise<string> {
+
+        const response = await axios.post<{ recommendation: string }>(
+            appConfig.aiRecommendationUrl,
+            { destination }
+        );
+
+        return response.data.recommendation;
+    }
+
     // Add like to vacation:
     public async addLike(
         vacationId: number

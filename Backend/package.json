@@ -17,6 +17,7 @@
         "tsx": "^4.23.1"
     },
     "dependencies": {
+        "@google/genai": "^2.26.0",
         "axios": "^1.19.0",
         "colors": "^1.4.0",
         "cors": "^2.8.6",

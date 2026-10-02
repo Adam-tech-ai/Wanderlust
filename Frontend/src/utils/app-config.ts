@@ -16,6 +16,10 @@ class AppConfig {
     public readonly reportsUrl =
         "http://localhost:4000/api/reports";
 
+    // Backend AI recommendation endpoint:
+    public readonly aiRecommendationUrl =
+        "http://localhost:4000/api/ai-recommendation";
+
     // Google reCAPTCHA site key:
     public readonly recaptchaSiteKey =
         import.meta.env.VITE_RECAPTCHA_SITE_KEY;

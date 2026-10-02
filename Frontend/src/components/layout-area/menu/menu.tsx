@@ -27,7 +27,18 @@ export function Menu() {
 
             {user &&
                 <>
-                    <NavLink to="/vacations">Vacations</NavLink>
+                    <NavLink to="/vacations">
+                        Vacations
+                    </NavLink>
+
+                    {user.role === "user" &&
+                        <>
+                            {" | "}
+                            <NavLink to="/ai-recommendation">
+                                AI Recommendation
+                            </NavLink>
+                        </>
+                    }
 
                     {user.role === "admin" &&
                         <>

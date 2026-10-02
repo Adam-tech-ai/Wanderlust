@@ -1,0 +1,34 @@
+.AiRecommendation {
+    max-width: 800px;
+    margin: 30px auto;
+    padding: 20px;
+}
+
+.AiRecommendation input {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 10px;
+    margin: 8px 0 15px;
+}
+
+.AiRecommendation button {
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+.AiRecommendation button:disabled {
+    cursor: not-allowed;
+}
+
+.AiRecommendation .recommendation {
+    margin-top: 25px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.AiRecommendation .recommendation p {
+    white-space: pre-wrap;
+    line-height: 1.6;
+}

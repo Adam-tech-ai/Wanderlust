@@ -5,6 +5,7 @@ import { securityMiddleware } from "../middleware/security-middleware";
 import { CredentialsModel } from "../models/credentials-model";
 import { UserModel } from "../models/user-model";
 import { VacationModel } from "../models/vacation-model";
+import { aiService } from "../services/ai-service";
 import { dataService } from "../services/data-service";
 import { cyber } from "../utils/cyber";
 
@@ -33,6 +34,12 @@ class DataController {
             "/api/reports",
             securityMiddleware.verifyAdmin,
             this.getVacationsReport
+        );
+
+        this.router.post(
+            "/api/ai-recommendation",
+            securityMiddleware.verifyUser,
+            this.getAiRecommendation
         );
 
         this.router.post(
@@ -136,6 +143,35 @@ class DataController {
         response.json(report);
     }
 
+    // Get AI trip recommendation:
+    private async getAiRecommendation(
+        request: Request,
+        response: Response
+    ): Promise<void> {
+
+        const destination =
+            String(request.body.destination || "").trim();
+
+        if (!destination) {
+            response
+                .status(400)
+                .json({
+                    message: "Destination is required."
+                });
+
+            return;
+        }
+
+        const recommendation =
+            await aiService.getRecommendation(
+                destination
+            );
+
+        response.json({
+            recommendation
+        });
+    }
+
     // Add like:
     private async addLike(
         request: Request,
@@ -237,6 +273,7 @@ class DataController {
             request.files?.image as UploadedFile;
 
         if (image) {
+
             const newImageName =
                 await saver.save(image);
 
