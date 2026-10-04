@@ -20,6 +20,10 @@ class AppConfig {
     public readonly aiRecommendationUrl =
         "http://localhost:4000/api/ai-recommendation";
 
+        // Backend MCP question endpoint:
+    public readonly mcpQuestionUrl =
+    "http://localhost:4000/api/mcp-question";
+
     // Google reCAPTCHA site key:
     public readonly recaptchaSiteKey =
         import.meta.env.VITE_RECAPTCHA_SITE_KEY;

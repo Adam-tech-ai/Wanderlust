@@ -6,6 +6,7 @@ import { Data } from "../../pages-area/data/data";
 import { EditVacation } from "../../pages-area/edit-vacation/edit-vacation";
 import { Home } from "../../pages-area/home/home";
 import { Login } from "../../pages-area/login/login";
+import { Mcp } from "../../pages-area/mcp/mcp";
 import { Page404 } from "../../pages-area/page404/page404";
 import { Register } from "../../pages-area/register/register";
 import { Reports } from "../../pages-area/reports/reports";
@@ -14,15 +15,34 @@ import { AdminRoute } from "../../shared-area/admin-route/admin-route";
 import { ProtectedRoute } from "../../shared-area/protected-route/protected-route";
 import { UserRoute } from "../../shared-area/user-route/user-route";
 
+// Defines all application routes:
 export function Routing() {
+
     return (
         <Routes>
 
-            <Route path="/" element={<Navigate to="/home" />} />
-            <Route path="/home" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
+            {/* Public routes: */}
+            <Route
+                path="/"
+                element={<Navigate to="/home" />}
+            />
 
+            <Route
+                path="/home"
+                element={<Home />}
+            />
+
+            <Route
+                path="/login"
+                element={<Login />}
+            />
+
+            <Route
+                path="/register"
+                element={<Register />}
+            />
+
+            {/* Vacations page for logged-in users: */}
             <Route
                 path="/vacations"
                 element={
@@ -32,15 +52,27 @@ export function Routing() {
                 }
             />
 
+            {/* AI recommendation page for regular users: */}
             <Route
-             path="/ai-recommendation" 
-             element={
-        <UserRoute>
-            <AiRecommendation />
-        </UserRoute>
-             }
-           />
+                path="/ai-recommendation"
+                element={
+                    <UserRoute>
+                        <AiRecommendation />
+                    </UserRoute>
+                }
+            />
 
+            {/* MCP data assistant page for regular users: */}
+            <Route
+                path="/mcp"
+                element={
+                    <UserRoute>
+                        <Mcp />
+                    </UserRoute>
+                }
+            />
+
+            {/* Add vacation page for admin only: */}
             <Route
                 path="/add-vacation"
                 element={
@@ -50,6 +82,7 @@ export function Routing() {
                 }
             />
 
+            {/* Edit vacation page for admin only: */}
             <Route
                 path="/edit-vacation/:id"
                 element={
@@ -59,6 +92,7 @@ export function Routing() {
                 }
             />
 
+            {/* Reports page for admin only: */}
             <Route
                 path="/reports"
                 element={
@@ -68,9 +102,22 @@ export function Routing() {
                 }
             />
 
-            <Route path="/data" element={<Data />} />
-            <Route path="/about" element={<About />} />
-            <Route path="*" element={<Page404 />} />
+            {/* Existing general pages: */}
+            <Route
+                path="/data"
+                element={<Data />}
+            />
+
+            <Route
+                path="/about"
+                element={<About />}
+            />
+
+            {/* Page not found: */}
+            <Route
+                path="*"
+                element={<Page404 />}
+            />
 
         </Routes>
     );
