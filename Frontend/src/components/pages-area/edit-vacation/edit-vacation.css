@@ -1,0 +1,7 @@
+/* Current vacation image: */
+.EditVacation img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}

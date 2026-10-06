@@ -19,6 +19,12 @@ class App {
         // Create our server object:
         const server = express();
 
+        // Expose vacation images to the Frontend before rate-limit:
+        server.use(
+            "/api/images",
+            express.static(path.join(__dirname, "assets", "images"))
+        );
+
         // System middleware:
         securityMiddleware.registerRateLimit(server); // Prevent DoS attacks.
         securityMiddleware.headerProtection(server); // Prevent header attacks.
@@ -26,7 +32,7 @@ class App {
         server.use(express.json()); // Configure express to create request.body from a given JSON.
         server.use(expressFileUpload()); // Configure express to create request.files from the request.
 
-        // Register "before" middleware: 
+        // Register "before" middleware:
         server.use(loggerMiddleware.logToConsole);
         server.use(securityMiddleware.preventXss);
 

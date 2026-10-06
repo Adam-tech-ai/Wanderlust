@@ -1,0 +1,12 @@
+/* Main vacations page: */
+.Vacations {
+    padding: 20px;
+}
+
+/* Vacation images: */
+.Vacations img {
+    width: 300px;
+    height: 200px;
+    object-fit: cover;
+    display: block;
+}

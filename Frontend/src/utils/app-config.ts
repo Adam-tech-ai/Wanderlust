@@ -20,9 +20,13 @@ class AppConfig {
     public readonly aiRecommendationUrl =
         "http://localhost:4000/api/ai-recommendation";
 
-        // Backend MCP question endpoint:
+    // Backend MCP question endpoint:
     public readonly mcpQuestionUrl =
-    "http://localhost:4000/api/mcp-question";
+        "http://localhost:4000/api/mcp-question";
+
+    // Backend vacation images path:
+    public readonly imagesUrl =
+        "http://localhost:4000/api/images";
 
     // Google reCAPTCHA site key:
     public readonly recaptchaSiteKey =

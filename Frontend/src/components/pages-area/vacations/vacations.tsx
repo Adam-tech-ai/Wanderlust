@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { VacationModel } from "../../../models/vacation-model";
 import { authService } from "../../../services/auth-service";
 import { dataService } from "../../../services/data-service";
+import { appConfig } from "../../../utils/app-config";
 import { notify } from "../../../utils/notify";
 import "./vacations.css";
 
@@ -121,6 +122,12 @@ export function Vacations() {
 
             {vacations.map(vacation =>
                 <div key={vacation.vacationId}>
+
+                    {/* Display vacation image from Backend: */}
+                    <img
+                        src={`${appConfig.imagesUrl}/${vacation.imageName}`}
+                        alt={vacation.destination}
+                    />
 
                     <h3>{vacation.destination}</h3>
 

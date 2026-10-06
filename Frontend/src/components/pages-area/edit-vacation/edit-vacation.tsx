@@ -1,8 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate, useParams } from "react-router-dom";
 import { VacationFormModel } from "../../../models/vacation-form-model";
 import { dataService } from "../../../services/data-service";
+import { appConfig } from "../../../utils/app-config";
 import { notify } from "../../../utils/notify";
 import "./edit-vacation.css";
 
@@ -16,6 +17,10 @@ export function EditVacation() {
 
     // Create navigation object:
     const navigate = useNavigate();
+
+    // Store current vacation image name:
+    const [imageName, setImageName] =
+        useState<string>("");
 
     // Create form management object:
     const {
@@ -42,6 +47,11 @@ export function EditVacation() {
                 await dataService.getVacationById(
                     vacationId
                 );
+
+            // Store current vacation image:
+            setImageName(
+                vacation.imageName
+            );
 
             // Fill form with current vacation data:
             reset({
@@ -179,6 +189,16 @@ export function EditVacation() {
                         End date must be on or
                         after start date.
                     </span>
+                }
+
+                <label>Current Image:</label>
+
+                {/* Display current vacation image: */}
+                {imageName &&
+                    <img
+                        src={`${appConfig.imagesUrl}/${imageName}`}
+                        alt="Current vacation"
+                    />
                 }
 
                 <label>New Image (optional):</label>
