@@ -1,0 +1,51 @@
+/* Global color palette: */
+:root {
+    font-family: Arial, Helvetica, sans-serif;
+    color: #172b4d;
+    background-color: #f5f8fc;
+
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* Apply consistent sizing to all elements: */
+* {
+    box-sizing: border-box;
+}
+
+/* Main page settings: */
+body {
+    margin: 0;
+    min-width: 320px;
+}
+
+/* Default typography: */
+h1, h2, h3 {
+    color: #142b49;
+}
+
+p {
+    line-height: 1.6;
+}
+
+/* Default links: */
+a {
+    color: #087f8c;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #065d68;
+}
+
+/* Default buttons: */
+button {
+    font: inherit;
+    cursor: pointer;
+}
+
+/* Default form fields: */
+input, textarea, select {
+    font: inherit;
+}

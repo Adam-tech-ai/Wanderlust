@@ -1,0 +1,71 @@
+/* Main navigation menu: */
+.Menu {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 12px 24px;
+    font-size: 14px;
+}
+
+/* Navigation links: */
+.Menu a {
+    display: inline-flex;
+    align-items: center;
+    padding: 10px 16px;
+    border-radius: 8px;
+    color: #52657d;
+    font-weight: 600;
+    transition: background-color 0.2s, color 0.2s;
+}
+
+/* Navigation hover effect: */
+.Menu a:hover {
+    background-color: #edf8f9;
+    color: #087f8c;
+}
+
+/* Highlight current page: */
+.Menu a.active {
+    background-color: #e4f7f7;
+    color: #087f8c;
+}
+
+/* Logged-in user name: */
+.Menu span {
+    color: #142b49;
+    font-weight: 600;
+}
+
+/* Logout button: */
+.Menu button {
+    padding: 10px 18px;
+    border: 1px solid #dce5ed;
+    border-radius: 8px;
+    background-color: #ffffff;
+    color: #52657d;
+    font-weight: 600;
+    transition: all 0.2s;
+}
+
+/* Logout button hover effect: */
+.Menu button:hover {
+    background-color: #fff0f0;
+    border-color: #f3c4c4;
+    color: #c0392b;
+}
+
+/* Responsive navigation: */
+@media (max-width: 768px) {
+    .Menu {
+        gap: 8px;
+        padding: 12px 16px;
+    }
+
+    .Menu a {
+        padding: 8px 12px;
+    }
+}

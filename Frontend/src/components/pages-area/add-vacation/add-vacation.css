@@ -1,0 +1,104 @@
+/* Add vacation page container: */
+.AddVacation {
+    width: 100%;
+    max-width: 650px;
+    margin: 30px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(20, 43, 73, 0.07);
+}
+
+/* Page title: */
+.AddVacation h2 {
+    margin: 0 0 30px;
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: -0.8px;
+}
+
+/* Vacation form layout: */
+.AddVacation form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Form labels: */
+.AddVacation label {
+    margin-top: 8px;
+    color: #142b49;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Form fields: */
+.AddVacation input,
+.AddVacation textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #dce5ed;
+    border-radius: 10px;
+    background-color: #f9fbfd;
+    color: #142b49;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Description field: */
+.AddVacation textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Focused form fields: */
+.AddVacation input:focus,
+.AddVacation textarea:focus {
+    border-color: #08a6a6;
+    box-shadow: 0 0 0 3px rgba(8, 166, 166, 0.12);
+}
+
+/* Image upload field: */
+.AddVacation input[type="file"] {
+    background-color: #ffffff;
+    cursor: pointer;
+}
+
+/* Form validation messages: */
+.AddVacation form span {
+    color: #d64545;
+    font-size: 12px;
+}
+
+/* Submit button: */
+.AddVacation form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background-color: #087f8c;
+    color: #ffffff;
+    font-weight: 700;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Submit button hover effect: */
+.AddVacation form button:hover {
+    background-color: #065d68;
+    transform: translateY(-1px);
+}
+
+/* Responsive form: */
+@media (max-width: 640px) {
+    .AddVacation {
+        margin: 15px auto;
+        padding: 28px 20px;
+    }
+
+    .AddVacation h2 {
+        font-size: 26px;
+    }
+}

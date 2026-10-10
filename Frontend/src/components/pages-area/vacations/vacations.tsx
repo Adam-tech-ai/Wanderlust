@@ -7,6 +7,7 @@ import { appConfig } from "../../../utils/app-config";
 import { notify } from "../../../utils/notify";
 import "./vacations.css";
 
+// Displays vacations with filters, likes and pagination:
 export function Vacations() {
 
     // Get logged-in user and navigation object:
@@ -98,68 +99,139 @@ export function Vacations() {
     return (
         <div className="Vacations">
 
-            <h2>Vacations</h2>
+            {/* Page title: */}
+            <div className="vacations-heading">
+                <h2>Explore Destinations</h2>
+                <p>Discover amazing places for your next adventure.</p>
+            </div>
 
-            <div>
-                <button onClick={() => changeFilter("all")}>
-                    All
+            {/* Vacation filters: */}
+            <div className="vacations-filters">
+
+                <button
+                    className={filter === "all" ? "selected" : ""}
+                    onClick={() => changeFilter("all")}
+                >
+                    All Vacations
                 </button>
 
                 {user?.role === "user" &&
-                    <button onClick={() => changeFilter("liked")}>
+                    <button
+                        className={filter === "liked" ? "selected" : ""}
+                        onClick={() => changeFilter("liked")}
+                    >
                         Liked
                     </button>
                 }
 
-                <button onClick={() => changeFilter("active")}>
+                <button
+                    className={filter === "active" ? "selected" : ""}
+                    onClick={() => changeFilter("active")}
+                >
                     Active
                 </button>
 
-                <button onClick={() => changeFilter("future")}>
-                    Future
+                <button
+                    className={filter === "future" ? "selected" : ""}
+                    onClick={() => changeFilter("future")}
+                >
+                    Upcoming
                 </button>
+
             </div>
 
-            {vacations.map(vacation =>
-                <div key={vacation.vacationId}>
+            {/* Vacation cards grid: */}
+            <div className="vacations-grid">
 
-                    {/* Display vacation image from Backend: */}
-                    <img
-                        src={`${appConfig.imagesUrl}/${vacation.imageName}`}
-                        alt={vacation.destination}
-                    />
+                {vacations.map(vacation =>
+                    <div
+                        className="vacation-card"
+                        key={vacation.vacationId}
+                    >
 
-                    <h3>{vacation.destination}</h3>
+                        {/* Vacation image: */}
+                        <img
+                            src={`${appConfig.imagesUrl}/${vacation.imageName}`}
+                            alt={vacation.destination}
+                        />
 
-                    <p>{vacation.description}</p>
-                    <p>Start: {vacation.startDate}</p>
-                    <p>End: {vacation.endDate}</p>
-                    <p>Price: ${vacation.price}</p>
-                    <p>Likes: {vacation.likesCount}</p>
+                        {/* Vacation details: */}
+                        <div className="vacation-card-content">
 
-                    {user?.role === "user" &&
-                        <button onClick={() => toggleLike(vacation)}>
-                            {vacation.isLiked ? "Unlike" : "Like"}
-                        </button>
-                    }
+                            <h3>{vacation.destination}</h3>
 
-                    {user?.role === "admin" &&
-                        <>
-                            <button onClick={() => editVacation(vacation.vacationId)}>
-                                Edit
-                            </button>
+                            <p className="vacation-description">
+                                {vacation.description}
+                            </p>
 
-                            <button onClick={() => deleteVacation(vacation)}>
-                                Delete
-                            </button>
-                        </>
-                    }
+                            {/* Vacation dates: */}
+                            <div className="vacation-dates">
+                                <p>
+                                    <strong>Start:</strong>{" "}
+                                    {new Date(vacation.startDate).toLocaleDateString("en-GB")}
+                                </p>
 
-                </div>
-            )}
+                                <p>
+                                    <strong>End:</strong>{" "}
+                                    {new Date(vacation.endDate).toLocaleDateString("en-GB")}
+                                </p>
+                            </div>
 
+                            {/* Vacation price and likes: */}
+                            <div className="vacation-details">
+
+                                <span className="vacation-price">
+                                    ${vacation.price}
+                                </span>
+
+                                <span className="vacation-likes">
+                                    ♥ {vacation.likesCount}
+                                </span>
+
+                            </div>
+
+                            {/* Regular user actions: */}
+                            {user?.role === "user" &&
+                                <button
+                                    className={`like-button ${vacation.isLiked ? "liked" : ""}`}
+                                    onClick={() => toggleLike(vacation)}
+                                >
+                                    {vacation.isLiked ? "♥ Liked" : "♡ Like"}
+                                </button>
+                            }
+
+                            {/* Admin actions: */}
+                            {user?.role === "admin" &&
+                                <div className="vacation-admin-actions">
+
+                                    <button
+                                        className="edit-button"
+                                        onClick={() => editVacation(vacation.vacationId)}
+                                    >
+                                        Edit
+                                    </button>
+
+                                    <button
+                                        className="delete-button"
+                                        onClick={() => deleteVacation(vacation)}
+                                    >
+                                        Delete
+                                    </button>
+
+                                </div>
+                            }
+
+                        </div>
+
+                    </div>
+                )}
+
+            </div>
+
+            {/* Vacation pagination: */}
             {totalPages > 0 &&
-                <div>
+                <div className="vacations-pagination">
+
                     <button
                         disabled={page === 1}
                         onClick={() => setPage(page - 1)}
@@ -167,7 +239,9 @@ export function Vacations() {
                         Previous
                     </button>
 
-                    <span> Page {page} of {totalPages} </span>
+                    <span>
+                        Page {page} of {totalPages}
+                    </span>
 
                     <button
                         disabled={page === totalPages}
@@ -175,6 +249,7 @@ export function Vacations() {
                     >
                         Next
                     </button>
+
                 </div>
             }
 

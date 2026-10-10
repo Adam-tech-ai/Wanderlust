@@ -1,0 +1,82 @@
+# Define all application containers:
+services:
+
+  # MySQL database container:
+  database:
+    image: mysql:8.4
+    container_name: vacations-database
+
+    # Configure MySQL database:
+    environment:
+      MYSQL_ROOT_PASSWORD: vacations123
+      MYSQL_DATABASE: vacations
+
+    # Initialize database using our SQL export:
+    volumes:
+      - ./Database/Vacations.sql:/docker-entrypoint-initdb.d/Vacations.sql
+      - vacations-data:/var/lib/mysql
+
+    # Check when MySQL is ready to receive connections:
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-pvacations123"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+    # Restart database if container stops unexpectedly:
+    restart: unless-stopped
+
+  # Node.js Backend container:
+  backend:
+    build:
+      context: ./Backend
+      dockerfile: Dockerfile
+
+    container_name: vacations-backend
+
+    # Backend environment variables:
+    environment:
+      ENVIRONMENT: development
+      MYSQL_HOST: database
+      MYSQL_USER: root
+      MYSQL_PASSWORD: vacations123
+      MYSQL_DATABASE: vacations
+      JWT_SECRET: ${JWT_SECRET}
+      HASH_SALT: The-Amazing-45800-7-Students!
+      RECAPTCHA_SECRET_KEY: 6LeIxAcTAAAAAGG-vFI1TnRWxMZNFuojJ4WifJWe
+      GEMINI_API_KEY: ${GEMINI_API_KEY}
+
+    # Wait until MySQL is ready:
+    depends_on:
+      database:
+        condition: service_healthy
+
+    # Expose Backend to our computer:
+    ports:
+      - "4000:4000"
+
+    # Restart Backend if container stops unexpectedly:
+    restart: unless-stopped
+
+  # React Frontend container:
+  frontend:
+    build:
+      context: ./Frontend
+      dockerfile: Dockerfile
+
+    container_name: vacations-frontend
+
+    # Wait until Backend container starts:
+    depends_on:
+      - backend
+
+    # Expose Frontend to our computer:
+    ports:
+      - "4173:4173"
+
+    # Restart Frontend if container stops unexpectedly:
+    restart: unless-stopped
+
+# Persistent MySQL data:
+volumes:
+  vacations-data:

@@ -1,0 +1,107 @@
+/* Register page container: */
+.Register {
+    width: 100%;
+    max-width: 480px;
+    margin: 40px auto;
+    padding: 40px;
+    background-color: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 18px;
+    box-shadow: 0 10px 35px rgba(20, 43, 73, 0.07);
+}
+
+/* Register page title: */
+.Register h2 {
+    margin: 0 0 30px;
+    font-size: 30px;
+    font-weight: 800;
+    text-align: center;
+    letter-spacing: -0.8px;
+}
+
+/* Registration form layout: */
+.Register form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Form labels: */
+.Register label {
+    margin-top: 8px;
+    color: #142b49;
+    font-size: 14px;
+    font-weight: 600;
+}
+
+/* Form input fields: */
+.Register input {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #dce5ed;
+    border-radius: 10px;
+    background-color: #f9fbfd;
+    color: #142b49;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+/* Highlight focused input: */
+.Register input:focus {
+    border-color: #08a6a6;
+    box-shadow: 0 0 0 3px rgba(8, 166, 166, 0.12);
+}
+
+/* Form validation messages: */
+.Register form span {
+    color: #d64545;
+    font-size: 12px;
+}
+
+/* Register button: */
+.Register form button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+    background-color: #087f8c;
+    color: #ffffff;
+    font-weight: 700;
+    transition: background-color 0.2s, transform 0.2s;
+}
+
+/* Register button hover effect: */
+.Register form button:hover {
+    background-color: #065d68;
+    transform: translateY(-1px);
+}
+
+/* Login link: */
+.Register > p {
+    margin: 25px 0 0;
+    color: #718096;
+    font-size: 14px;
+    text-align: center;
+}
+
+.Register > p a {
+    color: #087f8c;
+    font-weight: 700;
+}
+
+.Register > p a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive registration form: */
+@media (max-width: 480px) {
+    .Register {
+        margin: 25px auto;
+        padding: 28px 22px;
+    }
+
+    .Register h2 {
+        font-size: 26px;
+    }
+}

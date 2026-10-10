@@ -1,0 +1,39 @@
+/* Main application layout: */
+.Layout {
+    display: grid;
+    grid-template-rows: auto auto 1fr auto;
+    min-height: 100vh;
+}
+
+/* Header area: */
+.Layout > header {
+    background-color: #ffffff;
+}
+
+/* Navigation area: */
+.Layout > nav {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+/* Main content area: */
+.Layout > main {
+    width: 100%;
+    max-width: 1440px;
+    margin: 0 auto;
+    padding: 32px 24px;
+    min-width: 0;
+}
+
+/* Footer area: */
+.Layout > footer {
+    background-color: #ffffff;
+    border-top: 1px solid #e5eaf0;
+}
+
+/* Responsive layout for smaller screens: */
+@media (max-width: 768px) {
+    .Layout > main {
+        padding: 20px 16px;
+    }
+}

@@ -1,50 +1,216 @@
+
+/* Main MCP assistant page: */
 .Mcp {
-    max-width: 700px;
-    margin: 40px auto;
-    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0;
 }
 
-.Mcp > p {
-    margin-bottom: 20px;
+/* Page heading: */
+.mcp-heading {
+    text-align: center;
+    margin-bottom: 35px;
 }
 
+/* AI assistant badge: */
+.mcp-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background-color: #e5f4f5;
+    color: #087f8c;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Main page title: */
+.mcp-heading h2 {
+    margin: 18px 0 12px;
+    color: #142b49;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Page description: */
+.mcp-heading p {
+    max-width: 600px;
+    margin: 0 auto;
+    color: #718096;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Question form card: */
+.mcp-question-panel {
+    padding: 35px;
+    background-color: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(20, 43, 73, 0.05);
+}
+
+/* Question card heading: */
+.mcp-panel-heading {
+    margin-bottom: 28px;
+}
+
+.mcp-panel-heading h3 {
+    margin: 0 0 8px;
+    color: #142b49;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.mcp-panel-heading p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Question form layout: */
 .Mcp form {
     display: flex;
     flex-direction: column;
     gap: 15px;
 }
 
+/* Question input label: */
+.mcp-question-panel label {
+    color: #142b49;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Question textarea: */
 .Mcp textarea {
-    min-height: 120px;
-    padding: 12px;
-    font-size: 16px;
+    width: 100%;
+    min-height: 130px;
+    padding: 15px 17px;
+    border: 1px solid #dce4ed;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #142b49;
+    font-family: inherit;
+    font-size: 15px;
+    line-height: 1.6;
     resize: vertical;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* Textarea focus effect: */
+.Mcp textarea:focus {
+    border-color: #087f8c;
+    box-shadow: 0 0 0 3px rgba(8, 127, 140, 0.1);
+}
+
+/* Ask assistant button: */
 .Mcp button {
-    align-self: flex-start;
-    padding: 10px 25px;
+    width: 100%;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 10px;
+    background-color: #087f8c;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
+/* Button hover effect: */
+.Mcp button:hover:not(:disabled) {
+    background-color: #065d68;
+    transform: translateY(-2px);
+}
+
+/* Disabled button while loading: */
 .Mcp button:disabled {
+    opacity: 0.65;
     cursor: not-allowed;
-    opacity: 0.6;
 }
 
-.Mcp .answer {
-    margin-top: 25px;
-    padding: 15px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    white-space: pre-wrap;
-}
-
-.Mcp .answer h3 {
-    margin-top: 0;
-}
-
+/* Error message: */
 .Mcp .error {
     margin-top: 20px;
-    color: red;
+    padding: 14px 16px;
+    border: 1px solid #f5c2c7;
+    border-radius: 10px;
+    background-color: #fff1f2;
+    color: #b42318;
+    font-size: 14px;
+}
+
+/* MCP answer card: */
+.Mcp .answer {
+    margin-top: 30px;
+    padding: 35px;
+    background-color: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(20, 43, 73, 0.05);
+}
+
+/* Answer card heading: */
+.mcp-answer-heading {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+.mcp-answer-heading h3 {
+    margin: 18px 0 8px;
+    color: #142b49;
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.mcp-answer-heading p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+}
+
+/* AI-generated answer text: */
+.mcp-answer-content p {
+    margin: 0;
+    color: #42546b;
+    font-size: 15px;
+    line-height: 1.9;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+
+/* Mobile layout: */
+@media (max-width: 640px) {
+
+    .Mcp {
+        margin: 10px auto;
+    }
+
+    .mcp-heading {
+        margin-bottom: 25px;
+    }
+
+    .mcp-heading h2 {
+        font-size: 30px;
+    }
+
+    .mcp-heading p {
+        font-size: 14px;
+    }
+
+    .mcp-question-panel,
+    .Mcp .answer {
+        padding: 24px 20px;
+    }
+
+    .mcp-answer-heading h3 {
+        font-size: 23px;
+    }
 }

@@ -1,0 +1,15 @@
+# Ignore installed dependencies:
+node_modules
+
+# Ignore production build:
+dist
+
+# Ignore local environment variables:
+.env
+
+# Ignore macOS system files:
+.DS_Store
+
+# Ignore Git files:
+.git
+.gitignore

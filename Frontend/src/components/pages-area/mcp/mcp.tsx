@@ -1,3 +1,4 @@
+
 import { FormEvent, useState } from "react";
 import { dataService } from "../../../services/data-service";
 import "./mcp.css";
@@ -72,50 +73,97 @@ export function Mcp() {
     return (
         <div className="Mcp">
 
-            <h2>MCP Data Assistant</h2>
+            {/* Page heading: */}
+            <div className="mcp-heading">
 
-            <p>
-                Ask any question about the vacations
-                stored in the database.
-            </p>
+                <span className="mcp-badge">
+                    AI Database Assistant
+                </span>
 
-            <form onSubmit={askQuestion}>
+                <h2>Ask Wanderlust AI</h2>
 
-                <textarea
-                    placeholder="Example: What is the average price of the vacations?"
-                    value={question}
-                    onChange={event =>
-                        setQuestion(event.target.value)
-                    }
-                    disabled={loading}
-                />
+                <p>
+                    Explore our vacation database using natural
+                    language. Ask questions and discover insights
+                    about available destinations.
+                </p>
 
-                <button
-                    type="submit"
-                    disabled={loading}
-                >
-                    {loading
-                        ? "Thinking..."
-                        : "Ask"}
-                </button>
+            </div>
 
-            </form>
+            {/* Question form card: */}
+            <div className="mcp-question-panel">
 
-            {error &&
-                <div className="error">
-                    {error}
+                <div className="mcp-panel-heading">
+                    <h3>What would you like to know?</h3>
+                    <p>
+                        Ask anything about the vacations
+                        stored in our database.
+                    </p>
                 </div>
-            }
 
-            {answer &&
+                <form onSubmit={askQuestion}>
+
+                    <label htmlFor="mcp-question">
+                        Your Question
+                    </label>
+
+                    <textarea
+                        id="mcp-question"
+                        placeholder="e.g. What is the average price of the vacations?"
+                        value={question}
+                        onChange={event =>
+                            setQuestion(event.target.value)
+                        }
+                        disabled={loading}
+                        rows={4}
+                    />
+
+                    {/* Submit question: */}
+                    <button
+                        type="submit"
+                        disabled={loading}
+                    >
+                        {loading
+                            ? "Analyzing Your Question..."
+                            : "Ask AI Assistant"}
+                    </button>
+
+                </form>
+
+                {/* Error message: */}
+                {error && (
+                    <div className="error">
+                        {error}
+                    </div>
+                )}
+
+            </div>
+
+            {/* MCP answer card: */}
+            {answer && (
                 <div className="answer">
 
-                    <h3>Answer</h3>
+                    <div className="mcp-answer-heading">
 
-                    <p>{answer}</p>
+                        <span className="mcp-badge">
+                            AI Response
+                        </span>
+
+                        <h3>Your Answer</h3>
+
+                        <p>
+                            Insights from the Wanderlust
+                            vacation database
+                        </p>
+
+                    </div>
+
+                    <div className="mcp-answer-content">
+                        <p>{answer}</p>
+                    </div>
 
                 </div>
-            }
+            )}
 
         </div>
     );

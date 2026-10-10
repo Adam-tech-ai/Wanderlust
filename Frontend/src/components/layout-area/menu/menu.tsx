@@ -29,8 +29,6 @@ export function Menu() {
                         Register
                     </NavLink>
 
-                    {" | "}
-
                     <NavLink to="/login">
                         Login
                     </NavLink>
@@ -47,13 +45,9 @@ export function Menu() {
                     {/* Regular user options: */}
                     {user.role === "user" &&
                         <>
-                            {" | "}
-
                             <NavLink to="/ai-recommendation">
                                 AI Recommendation
                             </NavLink>
-
-                            {" | "}
 
                             <NavLink to="/mcp">
                                 MCP
@@ -64,13 +58,9 @@ export function Menu() {
                     {/* Admin options: */}
                     {user.role === "admin" &&
                         <>
-                            {" | "}
-
                             <NavLink to="/add-vacation">
                                 Add Vacation
                             </NavLink>
-
-                            {" | "}
 
                             <NavLink to="/reports">
                                 Reports
@@ -78,14 +68,10 @@ export function Menu() {
                         </>
                     }
 
-                    {" | "}
-
                     {/* Logged-in user name: */}
                     <span>
                         {user.firstName} {user.lastName}
                     </span>
-
-                    {" | "}
 
                     {/* Logout button: */}
                     <button onClick={logout}>

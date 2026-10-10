@@ -1,34 +1,198 @@
+
+/* Main AI recommendation page: */
 .AiRecommendation {
-    max-width: 800px;
-    margin: 30px auto;
-    padding: 20px;
+    width: 100%;
+    max-width: 900px;
+    margin: 20px auto;
+    padding: 0;
 }
 
+/* Page heading: */
+.ai-heading {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+/* AI feature badge: */
+.ai-badge {
+    display: inline-block;
+    padding: 8px 16px;
+    border-radius: 30px;
+    background-color: #e5f4f5;
+    color: #087f8c;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Main page title: */
+.ai-heading h2 {
+    margin: 18px 0 12px;
+    color: #142b49;
+    font-size: 38px;
+    font-weight: 800;
+    letter-spacing: -1px;
+}
+
+/* Page description: */
+.ai-heading p {
+    max-width: 570px;
+    margin: 0 auto;
+    color: #718096;
+    font-size: 16px;
+    line-height: 1.7;
+}
+
+/* Destination search card: */
+.ai-search-panel {
+    padding: 35px;
+    background-color: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(20, 43, 73, 0.05);
+}
+
+/* Search card heading: */
+.ai-search-heading {
+    margin-bottom: 28px;
+}
+
+.ai-search-heading h3 {
+    margin: 0 0 8px;
+    color: #142b49;
+    font-size: 23px;
+    font-weight: 700;
+}
+
+.ai-search-heading p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+/* Destination input label: */
+.ai-search-panel label {
+    display: block;
+    margin-bottom: 10px;
+    color: #142b49;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* Destination input: */
 .AiRecommendation input {
     display: block;
     width: 100%;
-    box-sizing: border-box;
-    padding: 10px;
-    margin: 8px 0 15px;
+    padding: 15px 17px;
+    margin-bottom: 20px;
+    border: 1px solid #dce4ed;
+    border-radius: 10px;
+    background-color: #ffffff;
+    color: #142b49;
+    font-size: 15px;
+    outline: none;
+    transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+/* Input focus effect: */
+.AiRecommendation input:focus {
+    border-color: #087f8c;
+    box-shadow: 0 0 0 3px rgba(8, 127, 140, 0.1);
+}
+
+/* Generate recommendation button: */
 .AiRecommendation button {
-    padding: 10px 20px;
+    width: 100%;
+    padding: 16px 24px;
+    border: none;
+    border-radius: 10px;
+    background-color: #087f8c;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 700;
     cursor: pointer;
+    transition: background-color 0.2s, transform 0.2s;
 }
 
+/* Button hover effect: */
+.AiRecommendation button:hover:not(:disabled) {
+    background-color: #065d68;
+    transform: translateY(-2px);
+}
+
+/* Disabled button while loading: */
 .AiRecommendation button:disabled {
+    opacity: 0.65;
     cursor: not-allowed;
 }
 
+/* AI recommendation result card: */
 .AiRecommendation .recommendation {
-    margin-top: 25px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    margin-top: 30px;
+    padding: 35px;
+    background-color: #ffffff;
+    border: 1px solid #e5eaf0;
+    border-radius: 18px;
+    box-shadow: 0 5px 20px rgba(20, 43, 73, 0.05);
 }
 
-.AiRecommendation .recommendation p {
+/* Recommendation result heading: */
+.recommendation-heading {
+    padding-bottom: 25px;
+    margin-bottom: 25px;
+    border-bottom: 1px solid #e5eaf0;
+}
+
+.recommendation-heading h3 {
+    margin: 18px 0 8px;
+    color: #142b49;
+    font-size: 27px;
+    font-weight: 800;
+}
+
+.recommendation-heading p {
+    margin: 0;
+    color: #718096;
+    font-size: 14px;
+}
+
+/* AI-generated recommendation text: */
+.AiRecommendation .recommendation-content p {
+    margin: 0;
+    color: #42546b;
+    font-size: 15px;
+    line-height: 1.9;
     white-space: pre-wrap;
-    line-height: 1.6;
+    overflow-wrap: anywhere;
+}
+
+/* Mobile layout: */
+@media (max-width: 640px) {
+
+    .AiRecommendation {
+        margin: 10px auto;
+    }
+
+    .ai-heading {
+        margin-bottom: 25px;
+    }
+
+    .ai-heading h2 {
+        font-size: 30px;
+    }
+
+    .ai-heading p {
+        font-size: 14px;
+    }
+
+    .ai-search-panel,
+    .AiRecommendation .recommendation {
+        padding: 24px 20px;
+    }
+
+    .recommendation-heading h3 {
+        font-size: 23px;
+    }
 }

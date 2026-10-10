@@ -3,3 +3,5 @@ build/
 dist/
 .env
 Course.md
+# macOS system files:
+.DS_Store
