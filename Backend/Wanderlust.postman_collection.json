@@ -1,0 +1,1114 @@
+{
+  "info": {
+    "_postman_id": "766c7d0e-1817-415a-a06a-8eb2d777ebb7",
+    "name": "Project 3 Vacations",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "56759767",
+    "_collection_link": "https://go.postman.co/collection/56759767-766c7d0e-1817-415a-a06a-8eb2d777ebb7?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "New Request",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/vacations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post validaçao",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"firstName\": \"Adam\",\n    \"lastName\": \"Schwarcz\",\n    \"email\": \"adam@test.com\",\n    \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post(ver se o email ta unico)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"firstName\": \"Adam\",\n    \"lastName\": \"Schwarcz\",\n    \"email\": \"adam@test.com\",\n    \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post(teste tamanho da senha)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"firstName\": \"Test\",\n    \"lastName\": \"User\",\n    \"email\": \"test@test.com\",\n    \"password\": \"123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post(teste de login)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"adam@test.com\",\n    \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post(teste de login senha errada) Copy",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"adam@test.com\",\n    \"password\": \"9999\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post(teste de login senha errada e email invalido)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"isso-nao-e-email\",\n    \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "post(email certo e senha errada)",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"adam@test.com\",\n    \"password\": \"123\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "caminho bloqueado para quem nao está logado e jwt",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/vacations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "pegar o token",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"email\": \"adam@test.com\",\n    \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/login",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "login"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_13hz}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "destination",
+              "type": "text",
+              "uuid": "16fd5208-a05e-4772-bf97-03fb914759ff",
+              "value": "Berlin"
+            },
+            {
+              "key": "description",
+              "type": "text",
+              "uuid": "2d9e9d2c-1d43-4a7b-bb7b-df6a6a8ce70b",
+              "value": "Vacation in Berlin"
+            },
+            {
+              "key": "startDate",
+              "type": "text",
+              "uuid": "6a38a8a2-7221-42a4-a75e-9761a5e8a612",
+              "value": "2026-10-20"
+            },
+            {
+              "key": "endDate",
+              "type": "text",
+              "uuid": "4e51917f-0d03-4b9f-b9d6-587bd59008f9",
+              "value": "2026-10-27"
+            },
+            {
+              "key": "price",
+              "type": "text",
+              "uuid": "65071a5e-ec5f-4a12-a50f-94702ad4c973",
+              "value": "1500"
+            },
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "cb77139b-77b1-454e-8e1f-b96267c17c0d",
+              "src": "/Users/adamschwarcz/Pictures/i.A Generative/Ap luxo.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/vacations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_13hz}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "destination",
+              "type": "text",
+              "uuid": "538e761f-7c51-42c3-841e-959a1303fcfc",
+              "value": "Berlin Updated"
+            },
+            {
+              "key": "description",
+              "type": "text",
+              "uuid": "8a45c94a-3f64-41bf-a02b-bf63d56d7b74",
+              "value": "Updated vacation in Berlin"
+            },
+            {
+              "key": "startDate",
+              "type": "text",
+              "uuid": "0abb67df-16fb-4260-9d1f-adeba05bc07f",
+              "value": "2026-10-20"
+            },
+            {
+              "key": "endDate",
+              "type": "text",
+              "uuid": "617fe019-66e8-4a36-92f2-ddaa15909c93",
+              "value": "2026-10-30"
+            },
+            {
+              "key": "price",
+              "type": "text",
+              "uuid": "669e215e-5876-4db4-a965-31edf118df5c",
+              "value": "1700"
+            },
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "b17c8b7f-ff53-4149-9700-883c9232c025",
+              "src": "/Users/adamschwarcz/Pictures/Pokemon/Charmander/u2574465821_a_newborn_charmander_emerging_from_a_cracked_volc_10261bba-fd9f-49b8-a48f-a0dec906074a_2.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/vacations/13",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations",
+            "13"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_13hz}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/vacations/13",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations",
+            "13"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Test Past",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_13hz}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "destination",
+              "type": "text",
+              "uuid": "961acb40-7b74-4f27-b784-a749e2807c8d",
+              "value": "Test Past"
+            },
+            {
+              "key": "description",
+              "type": "text",
+              "uuid": "d389eb7b-13d7-4b16-8cc8-1d626b5b48ac",
+              "value": "Testing past date validation"
+            },
+            {
+              "key": "startDate",
+              "type": "text",
+              "uuid": "a1a14a7d-1120-4520-90ff-41b1d61f4a17",
+              "value": "2026-01-01"
+            },
+            {
+              "key": "endDate",
+              "type": "text",
+              "uuid": "a6fd4415-e321-4ecd-8e11-546af3a9692e",
+              "value": "2026-01-10"
+            },
+            {
+              "key": "price",
+              "type": "text",
+              "uuid": "d0be0da8-1929-4b25-b78d-d85ca9f37bc4",
+              "value": "1000"
+            },
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "c96bf550-cc08-4565-a231-493a5bff9036",
+              "src": "/Users/adamschwarcz/Pictures/Pokemon/Charmander/u2574465821_a_newborn_charmander_emerging_from_a_cracked_volc_10261bba-fd9f-49b8-a48f-a0dec906074a_2.png"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/vacations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "diferença do edit",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_13hz}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "PUT",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "destination",
+              "type": "text",
+              "uuid": "ce6c67a7-fdc3-41ec-8770-af4e2cb62d8b",
+              "value": "Paris"
+            },
+            {
+              "key": "description",
+              "type": "text",
+              "uuid": "0557c925-82f3-4c2d-af51-787c0188b0a3",
+              "value": "A romantic vacation in Paris with museums, cafes and famous landmarks."
+            },
+            {
+              "key": "startDate",
+              "type": "text",
+              "uuid": "7ea3c4f0-5ef9-4dc2-9735-14e8ea07554b",
+              "value": "2026-08-10"
+            },
+            {
+              "key": "endDate",
+              "type": "text",
+              "uuid": "3f2f70bf-d4d1-43a2-af16-0b0a145a8adb",
+              "value": "2026-08-17"
+            },
+            {
+              "key": "price",
+              "type": "text",
+              "uuid": "5cd2e586-b239-4862-b12f-76318d23bbd8",
+              "value": "1800"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/vacations/1",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations",
+            "1"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Teste final da parte 4",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"firstName\": \"Regression\",\n    \"lastName\": \"Test\",\n    \"email\": \"regression@test.com\",\n    \"password\": \"1234\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/register",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "register"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "parte 5",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0xlb}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/vacations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_19kt}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/vacations/5/likes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations",
+            "5",
+            "likes"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0upv}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/vacations/15",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations",
+            "15"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0621}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"destination\": \"Tokyo\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/ai-recommendation",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "ai-recommendation"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_0rwc}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/mcp-test",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "mcp-test"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_1cj5}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"question\": \"Which future vacations are available in European countries?\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/mcp-question",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "mcp-question"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{auth_secret_0nex}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "formdata",
+          "formdata": [
+            {
+              "key": "image",
+              "type": "file",
+              "uuid": "bbdcc8f0-f12e-4493-95b4-8c88d8e2c9f6",
+              "src": "/Users/adamschwarcz/Pictures/Traduçoes Torah/Parashat Korach Sichot Mussar/Foto.pdf"
+            },
+            {
+              "key": "destination",
+              "type": "text",
+              "uuid": "0ba739b8-6bbc-4be2-bc70-2397e5ce3010",
+              "value": "Palette Town"
+            },
+            {
+              "key": "description",
+              "type": "text",
+              "uuid": "2792a45d-7dc0-4575-a52d-2e4d9bfd4558",
+              "value": "The legendary city of Pokemon"
+            },
+            {
+              "key": "startDate",
+              "type": "text",
+              "uuid": "951f5ddc-2b28-4dcc-aceb-d140490de5ea",
+              "value": "2027-03-01"
+            },
+            {
+              "key": "endDate",
+              "type": "text",
+              "uuid": "d6edfb37-d824-4bb0-82fb-0d7665885584",
+              "value": "2027-03-05"
+            },
+            {
+              "key": "price",
+              "type": "text",
+              "uuid": "2c802884-534c-4eee-b420-d5378cbe301f",
+              "value": "1000"
+            }
+          ]
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/vacations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "New Request",
+      "request": {
+        "auth": {
+          "type": "noauth"
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/vacations",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Reports",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{json_web_token_05d4}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/reports",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "reports"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "AI Recommendation",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0lnq}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"destination\": \"Jerusalem\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/ai-recommendation",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "ai-recommendation"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "MCP Question",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0lnq}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\n    \"question\": \"What is the average price of all vacations?\"\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:4000/api/mcp-question",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "mcp-question"
+          ]
+        }
+      },
+      "response": []
+    },
+    {
+      "name": "Remove Like",
+      "request": {
+        "auth": {
+          "type": "bearer",
+          "bearer": [
+            {
+              "key": "token",
+              "value": "{{supabase_service_role_api_key_0lnq}}",
+              "type": "string"
+            }
+          ]
+        },
+        "method": "DELETE",
+        "header": [],
+        "url": {
+          "raw": "http://localhost:4000/api/vacations/5/likes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "4000",
+          "path": [
+            "api",
+            "vacations",
+            "5",
+            "likes"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "variable": [
+    {
+      "key": "json_web_token_13hz",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_13hz",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0xlb",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_19kt",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0upv",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_13hz",
+      "secret": true
+    },
+    {
+      "key": "auth_secret_0nex",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_1cj5",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_0rwc",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0621",
+      "secret": true
+    },
+    {
+      "key": "supabase_service_role_api_key_0lnq",
+      "secret": true
+    },
+    {
+      "key": "json_web_token_05d4",
+      "secret": true
+    }
+  ]
+}

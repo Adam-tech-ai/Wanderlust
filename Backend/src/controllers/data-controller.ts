@@ -1,5 +1,4 @@
 import express, { Request, Response, Router } from "express";
-import { UploadedFile } from "express-fileupload";
 import { saver } from "smart-saver";
 import { securityMiddleware } from "../middleware/security-middleware";
 import { CredentialsModel } from "../models/credentials-model";
@@ -309,7 +308,29 @@ class DataController {
 
         // Get uploaded image:
         const image =
-            request.files?.image as UploadedFile;
+            request.files?.image;
+
+        // Require exactly one image when adding a vacation:
+        if (!image || Array.isArray(image)) {
+            response
+                .status(400)
+                .json({
+                    message: "Vacation image is required. Upload one image."
+                });
+
+            return;
+        }
+
+        // Validate the declared MIME type of the uploaded file:
+        if (!image.mimetype.startsWith("image/")) {
+            response
+                .status(400)
+                .json({
+                    message: "Uploaded file must be an image."
+                });
+
+            return;
+        }
 
         // Save image:
         const imageName =
@@ -356,11 +377,34 @@ class DataController {
 
         // Get new image if uploaded:
         const image =
-            request.files?.image as UploadedFile;
+            request.files?.image;
 
-        // Save new image if supplied:
+        // Validate and save a replacement image only if supplied:
         if (image) {
 
+            // Reject multiple uploaded images:
+            if (Array.isArray(image)) {
+                response
+                    .status(400)
+                    .json({
+                        message: "Upload only one vacation image."
+                    });
+
+                return;
+            }
+
+            // Validate the declared MIME type of the uploaded file:
+            if (!image.mimetype.startsWith("image/")) {
+                response
+                    .status(400)
+                    .json({
+                        message: "Uploaded file must be an image."
+                    });
+
+                return;
+            }
+
+            // Save replacement image:
             const newImageName =
                 await saver.save(image);
 

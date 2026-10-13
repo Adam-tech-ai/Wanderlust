@@ -1,7 +1,25 @@
+# Dependencies:
 node_modules/
+
+# Generated builds:
 build/
 dist/
+*.tsbuildinfo
+
+# Local environment files:
 .env
+.env.*
+*.env
+
+# Allow configuration examples without real secrets:
+!.env.example
+!**/.env.example
+
+# Local development notes:
 Course.md
-# macOS system files:
+
+# macOS files:
 .DS_Store
+
+# Logs:
+*.log

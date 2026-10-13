@@ -9,7 +9,10 @@ class Dal {
         host: appConfig.mysqlHost,
         user: appConfig.mysqlUser,
         password: appConfig.mysqlPassword,
-        database: appConfig.mysqlDatabase
+        database: appConfig.mysqlDatabase,
+
+        // Return DATE columns as YYYY-MM-DD strings without timezone conversion:
+        dateStrings: ["DATE"]
     };
 
     // Connection object:
@@ -24,7 +27,7 @@ class Dal {
             // Go to DB, send sql, get data, invoke callback:
             this.connection.query(sql, values, (err: QueryError | null, result: QueryResult) => {
 
-                if(err) { // Some error.
+                if (err) { // Some error.
                     reject(err);
                 }
                 else { // All is good.

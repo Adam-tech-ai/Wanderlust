@@ -1,4 +1,5 @@
 
+
 import { useEffect, useState } from "react";
 import {
     Bar,
@@ -48,7 +49,7 @@ export function Reports() {
 
         const rows = report
             .map(item =>
-                `"${item.destination}",${item.likesCount}`
+                `"${item.destination.replace(/"/g, '""')}",${item.likesCount}`
             )
             .join("\n");
 
@@ -157,37 +158,46 @@ export function Reports() {
 
                         <BarChart
                             data={sortedReport}
-                            layout="vertical"
                             margin={{
-                                top: 10,
-                                right: 45,
-                                left: 15,
-                                bottom: 10
+                                top: 25,
+                                right: 20,
+                                left: 0,
+                                bottom: 65
                             }}
                         >
 
+                            {/* Horizontal grid lines: */}
                             <CartesianGrid
                                 strokeDasharray="3 3"
-                                horizontal={false}
+                                vertical={false}
                                 stroke="#e5eaf0"
                             />
 
+                            {/* X axis displays destinations: */}
                             <XAxis
-                                type="number"
-                                allowDecimals={false}
-                                domain={[0, "dataMax + 1"]}
-                                stroke="#718096"
-                            />
-
-                            <YAxis
                                 type="category"
                                 dataKey="destination"
-                                width={100}
+                                interval={0}
+                                angle={-40}
+                                textAnchor="end"
+                                height={95}
                                 tickLine={false}
                                 axisLine={false}
+                                tick={{ fontSize: 11 }}
                                 stroke="#52657d"
                             />
 
+                            {/* Y axis displays number of likes: */}
+                            <YAxis
+                                type="number"
+                                allowDecimals={false}
+                                domain={[0, "dataMax + 1"]}
+                                tickLine={false}
+                                axisLine={false}
+                                stroke="#718096"
+                            />
+
+                            {/* Display likes on hover: */}
                             <Tooltip
                                 cursor={{ fill: "#f5f8fc" }}
                                 formatter={(value) => [
@@ -196,17 +206,19 @@ export function Reports() {
                                 ]}
                             />
 
+                            {/* Vertical bars: */}
                             <Bar
                                 dataKey="likesCount"
                                 name="Likes"
                                 fill="#087f8c"
-                                radius={[0, 6, 6, 0]}
-                                maxBarSize={24}
+                                radius={[6, 6, 0, 0]}
+                                maxBarSize={45}
                             >
 
+                                {/* Display likes above each bar: */}
                                 <LabelList
                                     dataKey="likesCount"
-                                    position="right"
+                                    position="top"
                                     fill="#142b49"
                                     fontSize={12}
                                 />

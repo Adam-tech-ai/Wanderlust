@@ -18,9 +18,19 @@ export function AddVacation() {
     // Create navigation object:
     const navigate = useNavigate();
 
-    // Get today's date:
-    const today =
-        new Date().toISOString().split("T")[0];
+    // Get today's date in the browser's local timezone:
+    const now = new Date();
+
+    const year = now.getFullYear();
+
+    const month =
+        String(now.getMonth() + 1).padStart(2, "0");
+
+    const day =
+        String(now.getDate()).padStart(2, "0");
+
+    // Format local date for date inputs:
+    const today = `${year}-${month}-${day}`;
 
     // Add vacation:
     async function send(
